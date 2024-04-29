@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="">
+    <h3 class="p-extrabold py-3" id="todaysDate"></h3>
+    <div class="row">
+        @foreach (var movie in Model) {
+            if (movie.IsActive == 1)
+            {
+            int totalMinutes = @movie.Duration;
+            int hours = totalMinutes / 60;
+            int minutes = totalMinutes % 60;
+            string badgeClass = "";
+
+            switch (movie.Rated)
+            {
+                case "G":
+                    badgeClass = "bg-success";
+                    break;
+                case "PG":
+                    badgeClass = "bg-primary";
+                    break;
+                case "R-13":
+                    badgeClass = "bg-warning";
+                    break;
+                case "R-16":
+                    badgeClass = "bg-orange";
+                    break;
+                case "R-18":
+                    badgeClass = "bg-danger";
+                    break;
+                default:
+                    badgeClass = "bg-secondary";
+                    break;
+            }
+            <div class="col-6 mb-3">
+                <div class="card border border-0 radius">
+                    <div class="card-body row">
+                        <div class="col-4">
+                            <img src="@movie.Poster" alt="sample movie" class="radius img-fluid" style="aspect-ratio: 2/3;" />
+                        </div>
+                        <div class="col-8">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div>
+                                    <div class="d-flex justify-content-between align-self-start align-items-center mb-2">
+                                        <span class="badge rounded-pill @badgeClass py-2">@movie.Rated</span>
+                                        <h5 class="fw-bold price">₱@movie.Price</h5>
+                                    </div>
+                                </div>
+                                <h5 class="p-semibold overflow-hidden text-truncate" style="white-space: nowrap;">@movie.Title</h5>
+                                <p class="fst-italic my-0 mb-2">
+                                    @if (hours > 0)
+                                    {
+                                        <span>@hours </span> @((hours > 1) ? "hrs" : "hr")
+                                        @if(minutes > 0)
+                                        {
+                                            <span>@minutes @((minutes > 1) ? "mins" : "min")</span>
+                                        }
+                                    }
+                                    else if (minutes > 0)
+                                    {
+                                        <span>@minutes @((minutes > 1) ? "mins" : "min")</span>
+                                    }
+                                </p>
+                                <p class="truncate mb-auto">@movie.Description</p>
+                                <p class="text-uppercase p-semibold mb-2">Showtimes</p>
+                                <div class="d-flex mb-3">
+                                    @foreach (var showtime in movie.Showtimes)
+                                    {
+                                        @if (showtime.MovieId == movie.MovieId)
+                                        {
+                                            <span class="badge rounded-pill bg-main me-2 fs-6">@showtime.Showtime1</span>
+                                        }
+                                    }
+                                </div>
+                                <a asp-area="" asp-controller="Home" asp-action="GetMovie" asp-route-id="@movie.MovieId" type="button" class="btn bg-darkshade text-lightb radius w-100 p-semibold">Buy Tickets</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    </div>
+</div>
+
+<script>
+    var currentDate = new Date();
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    var month = months[currentDate.getMonth()];
+    var day = currentDate.getDate();
+    var year = currentDate.getFullYear();
+
+    var formattedDate = 'Today, ' + month + ' ' + day + ', ' + year;
+    document.getElementById('todaysDate').textContent = formattedDate;
+</script>

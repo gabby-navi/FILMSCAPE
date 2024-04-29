@@ -1,0 +1,133 @@
+﻿@model MovieManagementSystem.Models.Data.Movieinfo
+
+@{
+    ViewData["Title"] = "Edit Movie";
+
+    int? totalMinutes = @Model.Duration;
+    int? hours = totalMinutes / 60;
+    int? minutes = totalMinutes % 60;
+}
+
+<div>
+    <a asp-area="" asp-controller="Admin" asp-action="Admin" type="button" class="btn bg-darkshade text-lightb radius">
+        Back
+    </a>
+    <form id="editMovieForm" method="post" asp-action="EditMovie" asp-controller="Admin" enctype="multipart/form-data">
+        <input type="hidden" name="MovieId" id="movieId" value="@Model.MovieId" />
+        <div class="row mt-3">
+            <div class="col-3">
+                <label class="poster" for="poster-input" tabIndex="0">
+                    @if (!string.IsNullOrEmpty(Model.Poster))
+                    {
+                        <img src="@Model.Poster" alt="Movie Poster" name="Poster" class="radius img-fluid" style="height: 100%; width: auto;" />
+                    }
+                    else
+                    {
+                        <span class="poster-image"></span>
+                    }
+                </label>
+                <input type="file" name="poster-input" id="poster-input" accept=".png, .jpg, .jpeg">
+                <div class="poster-image radius img-fluid"></div>
+            </div>
+            <div class="col-9 ps-4">
+                <div class="mb-3">
+                    <label for="movieTitle" class="form-label text-uppercase p-semibold">Movie Title</label>
+                    <input type="text" class="form-control" name="Title" id="movieTitle" value="@Model.Title" >
+                </div>
+                <div class="mb-3">
+                    <label for="movieDesc" class="form-label text-uppercase p-semibold">Description</label>
+                    <textarea class="form-control" id="movieDesc" name="Description" rows="3">@Model.Description</textarea>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-5 pe-5">
+                        <div class="row mb-3">
+                            <label class="form-label text-uppercase p-semibold">Duration</label>
+                            <div class="col-6 d-flex align-items-center">
+                                <select name="Hours" id="hoursEdit" class="form-select me-2" aria-label="" >
+                                    <option value="@hours">@hours</option>
+                                </select>
+                                <p class="mb-0">hr/s</p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center">
+                                <select name="Minutes" id="minutesEdit" class="form-select me-2" aria-label="" >
+                                    <option value="@minutes">@minutes</option>
+                                </select>
+                                <p class="mb-0">min/s</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <label class="form-label text-uppercase p-semibold">Rated</label>
+                        <div class="d-flex">
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" id="general" @(Model.Rated == "G" ? "checked" : "") disabled>
+                                <label class="form-check-label" for="general">G</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" id="parentalg" @(Model.Rated == "PG" ? "checked" : "") disabled>
+                                <label class="form-check-label" for="parentalg">PG</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" id="r13" @(Model.Rated == "R-13" ? "checked" : "") disabled>
+                                <label class="form-check-label" for="r13">R-13</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" id="r16" @(Model.Rated == "R-16" ? "checked" : "") disabled>
+                                <label class="form-check-label" for="r16">R-16</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" id="r18" @(Model.Rated == "R-18" ? "checked" : "") disabled>
+                                <label class="form-check-label" for="r18">R-18</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="movieTimes" name="Showtime1" class="form-label text-uppercase p-semibold">Showtimes</label>
+                    <div class="mb-3">
+                        @foreach (var showtime in Model.Showtimes)
+                        {
+                            @if (showtime.MovieId == Model.MovieId)
+                            {
+                                <span class="badge rounded-pill bg-darkshade me-2 fs-6">@showtime.Showtime1</span>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label for="moviePrice" class="form-label text-uppercase p-semibold">Unit Price</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">₱</span>
+                            <input type="text" id="moviePrice" name="Price" class="form-control" aria-label="moviePrice" aria-describedby="moviePrice" value="@Model.Price" >
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label text-uppercase p-semibold">Last Day Premiere</label>
+                        <input type="text" class="form-control" id="lastdaypicker" name="LastDay" style="cursor: pointer;" value="@Model.LastDay" >
+                    </div>
+                </div>
+                <div class="form-check form-switch mb-5">
+                    <input class="form-check-input" type="checkbox" role="switch" id="isActive" @(Model.IsActive == 1 ? "checked" : "")>
+                    <label class="form-check-label text-uppercase p-semibold" for="isActive" name="isActive">Active</label>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3" id="saveChanges">
+                        <button type="submit" id="updateButton" class="btn bg-darkshade text-lightb p-semibold radius w-100">Save Changes</button>
+                    </div>
+                    <div class="col-3" id="cancelEdit">
+                        <a asp-area="" asp-controller="Admin" asp-action="Admin" type="button" id="cancelButton" class="btn bg-danger p-semibold radius w-100 text-lightb">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    const totalDuration = @Model.Duration;
+    const movieID = @Model.MovieId;
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/site.js"></script>

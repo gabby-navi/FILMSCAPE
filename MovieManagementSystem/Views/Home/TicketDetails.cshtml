@@ -1,0 +1,61 @@
+﻿@model Tuple<MovieManagementSystem.Models.Data.Ticket, MovieManagementSystem.Models.Data.Showtime>
+
+@{
+    ViewData["Title"] = "Ticket Details";
+
+    string badgeClass = "";
+
+    switch (@Model.Item2.Movie.Rated)
+    {
+        case "G":
+            badgeClass = "bg-success";
+            break;
+        case "PG":
+            badgeClass = "bg-primary";
+            break;
+        case "R-13":
+            badgeClass = "bg-warning";
+            break;
+        case "R-16":
+            badgeClass = "bg-orange";
+            break;
+        case "R-18":
+            badgeClass = "bg-danger";
+            break;
+        default:
+            badgeClass = "bg-secondary";
+            break;
+    }
+}
+
+<div>
+    <a asp-area="" asp-controller="Home" asp-action="Index" type="button" class="btn bg-darkshade text-lightb radius">
+        Back to Booking
+    </a>
+    <h1 class="my-4">Ticket Details</h1>
+    <div class="card radius">
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-3">
+                    <img src="@Model.Item2.Movie.Poster" class="radius w-100 mb-4 img-fluid" style="aspect-ratio: 2/3;" id="moviePoster" />
+                </div>
+                <div class="col-9">
+                    <span class="badge rounded-pill @badgeClass py-2 fs-6">@Model.Item2.Movie.Rated</span>
+                    <h2 class="my-4 p-extrabold" id="ticketNum">#@Model.Item1.TicketNum</h2>
+                    <p>@Model.Item1.PurchaseDate.ToString("MM/dd/yyyy hh:mm tt")</p>
+                    <h4 class="mb-2 p-semibold" id="movieTitle">@Model.Item2.Movie.Title</h4>
+                    <p class="badge radius bg-main text-dasrkshade p-semibold px-3 fs-5">@Model.Item2.Showtime1</p>
+                    <p action="mb-0">Seats:</p>
+                    <div class="d-flex flex-wrap mb-2">
+                        @foreach (var seat in @Model.Item2.Seats)
+                        {
+                            <span class="badge rounded-pill bg-darkshade text-lightb me-2 fs-5">@seat.SeatName</span>
+                        }
+                    </div>
+                    <p>Discount: @(Model.Item1.IsPwd == 1 ? "PWD Discount: 20%" : (Model.Item1.IsStudent == 1 ? "Student Discount: 10%" : "None"))</p>
+                    <h3 class="p-semibold">Total: ₱@Model.Item1.TotalCost</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

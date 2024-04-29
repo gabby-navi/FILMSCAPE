@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Add Movie";
+}
+
+<div>
+    <a asp-area="" asp-controller="Admin" asp-action="Admin" type="button" class="btn bg-darkshade text-lightb radius">
+        Back
+    </a>
+    <form id="addMovieForm" method="post" enctype="multipart/form-data" novalidate>
+        <div class="row mt-3">
+            <div class="col-3">
+                <label class="poster" for="poster-input" tabIndex="0">
+                    <span class="poster-text">Click to upload poster</span>
+                </label>
+                <input type="file" name="Poster" id="poster-input" accept=".png, .jpg, .jpeg" required>
+            </div>
+            <div class="col-9 ps-4">
+                <div class="mb-3">
+                    <label for="movieTitle" class="form-label text-uppercase p-semibold">Movie Title</label>
+                    <input type="text" class="form-control" id="movieTitle" name="Title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="movieDesc" class="form-label text-uppercase p-semibold">Description</label>
+                    <textarea class="form-control" id="movieDesc" rows="3" name="Description" required></textarea>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-5 pe-5">
+                        <div class="row mb-3">
+                            <label class="form-label text-uppercase p-semibold">Duration</label>
+                            <div class="col-6 d-flex align-items-center">
+                                <select class="form-select me-2" aria-label="" name="Hours" id="hoursSelect">
+                                    <option selected value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                                <p class="mb-0">hr/s</p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center">
+                                <select class="form-select me-2" aria-label="" name="Minutes" id="minutesSelect">
+                                    @for (int i = 59; i >= 0; i--)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                                <p class="mb-0">min/s</p>
+                            </div>
+                            <input type="hidden" name="Duration" id="totalDuration" value="90">
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <label class="form-label text-uppercase p-semibold">Rated</label>
+                        <div class="d-flex">
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" id="general" value="G" checked>
+                                <label class="form-check-label" for="general">G</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" value="PG" id="parentalg">
+                                <label class="form-check-label" for="parentalg">PG</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" value="R-13" id="r13">
+                                <label class="form-check-label" for="r13">R-13</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" value="R-16" id="r16">
+                                <label class="form-check-label" for="r16">R-16</label>
+                            </div>
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="Rated" value="R-18" id="r18">
+                                <label class="form-check-label" for="r18">R-18</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="movieTimes" class="form-label text-uppercase p-semibold">Showtimes</label>
+                    <div id="timesHelp" class="form-text">
+                        Include the AM/PM. Separate each time by a comma (e.g. 12:00 PM, 4:20 PM).
+                    </div>
+                    <input type="text" class="form-control text-uppercase" name="Showtime1" id="movieTimes" required />
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label for="moviePrice" class="form-label text-uppercase p-semibold">Unit Price</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">₱</span>
+                            <input type="text" class="form-control" name="Price" id="moviePrice" aria-label="moviePrice" aria-describedby="moviePrice" required>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label text-uppercase p-semibold">Last Day Premiere</label>
+                        <input type="text" class="form-control" id="lastdaypicker" style="cursor: pointer;" name="LastDay" required>
+                    </div>
+                </div>
+                <div class="form-check form-switch mb-5">
+                    <input class="form-check-input" type="checkbox" role="switch" id="isActive" checked>
+                    <label class="form-check-label text-uppercase p-semibold" for="isActive">Active</label>
+                    <input type="hidden" id="isActiveHidden" name="IsActive" value="1">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <button type="submit" class="btn bg-darkshade text-lightb p-semibold radius w-100">Submit</button>
+                    </div>
+                    <div class="col-3">
+                        <a asp-area="" asp-controller="Admin" asp-action="Admin" type="button" class="btn bg-danger p-semibold radius w-100 text-lightb">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

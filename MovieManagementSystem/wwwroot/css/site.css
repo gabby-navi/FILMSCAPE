@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --main: #B3C8CF;
+    --second: #DBE9F4;
+    --darkshade: #4E5B5F;
+    --lightb: #F4F9FF;
+    --green: #51BE7C;
+    --orange: #EB4E2C;
+}
+
+.bg-main { background-color: var(--main); }
+.bg-second { background-color: var(--second); }
+.bg-darkshade { background-color: var(--darkshade); }
+.bg-lightb { background-color: var(--lightb); }
+.bg-green { background-color: var(--green); }
+.bg-orange { background-color: var(--orange); }
+.bg-red { background-color: maroon; }
+
+.text-main { color: var(--main); }
+.text-second { color: var(--second); }
+.text-darkshade { color: var(--darkshade); }
+.text-lightb { color: var(--lightb); }
+
+html {
+    font-size: 14px;
+    background-color: var(--second);
+}
+
+body {
+    background-color: var(--second);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.p-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.p-extrabold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.form-control, .form-select {
+    background-color: var(--lightb);
+    border: none;
+}
+
+.is-invalid {
+    border: solid 2px red !important;
+}
+
+.poster.is-invalid {
+    color: red;
+    font-weight: bold;
+    border: dashed 2px red;
+}
+
+.nav-link:hover {
+    color: var(--second);
+}
+
+.truncate {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.radius {
+    border-radius: 0.5rem;
+}
+
+button.bg-darkshade:hover {
+    background-color: #616E73;
+    color: var(--lightb);
+}
+
+#poster-input {
+    display: none;
+}
+
+.poster {
+    aspect-ratio: 2/3;
+    width: 100%;
+    background: var(--lightb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--darkshade);
+    border: 2px dashed currentcolor;
+    cursor: pointer;
+    font-family: sans-serif;
+    transition: color 300ms ease-in-out, background 300ms ease-in-out;
+    outline: none;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+    .poster:hover {
+        color: var(--lightb);
+        background: var(--main);
+    }
+
+.poster-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.legend {
+    height: 1.2rem;
+    width: 1.5rem;
+    border-radius: 20px 20px 5px 5px;
+}
+
+.badge-close {
+    cursor: pointer;
+    margin-left: 5px;
+}

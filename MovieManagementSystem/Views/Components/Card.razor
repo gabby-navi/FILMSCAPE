@@ -1,0 +1,38 @@
+﻿
+
+@code {
+    [Parameter] public string ImageUrl { get; set; }
+    [Parameter] public string Rating { get; set; }
+    [Parameter] public string Price { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Duration { get; set; }
+    [Parameter] public string Description { get; set; }
+    
+}
+
+<div class="card border border-0 radius">
+    <div class="card-body row">
+        <div class="col-4">
+            <img src="@ImageUrl" alt="@Title" class="radius img-fluid" />
+        </div>
+        <div class="col-8">
+            <div class="">
+                <div class="d-flex justify-content-between align-self-start align-items-center mb-2">
+                    <span class="badge rounded-pill bg-success py-2">@Rating</span>
+                    <h5 class="fw-bold price">₱@Price</h5>
+                </div>
+                <h5 class="p-semibold overflow-hidden text-truncate" style="white-space: nowrap;">@Title</h5>
+                <p class="fst-italic my-0">@Duration</p>
+                <p class="truncate">@Description</p>
+                <p class="text-uppercase p-semibold mb-2">Showtimes</p>
+                <div class="d-flex mb-3">
+                    <span class="badge rounded-pill bg-main me-2 fs-6">12:10 PM</span>
+                    <span class="badge rounded-pill bg-main me-2 fs-6">3:10 PM</span>
+                    <span class="badge rounded-pill bg-main me-2 fs-6">6:00 PM</span>
+                    <span class="badge rounded-pill bg-main me-2 fs-6">8:50 PM</span>
+                </div>
+                <button type="button" class="btn bg-darkshade text-lightb radius w-100 p-semibold">Buy Tickets</button>
+            </div>
+        </div>
+    </div>
+</div>
